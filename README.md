@@ -29,3 +29,7 @@ http://localhost:3000)
 **6. Si trabajas en equipo**
 
 Uno de los miembros del equipo deberá crear un repo nuevo en Github y añadir al resto de integrantes del equipo como colaboradores. Ese es el repo que tendréis que compartir para la evaluación.
+
+**7. Refactorizar**
+
+Los archivos sobre los que tenéis que trabajar son los .ts. A medida que vayáis haciendo cambios y queráis probarlos, necesitáis transpilar el código a JavaScript, para ello tendréis que ir a la consola, y, desde dentro de la carpeta raiz del proyecto, ecutar el comando `npm run tsc`. Una vez el transpilador haya acabado, tendrás que poner en marcha de nuevo la app con `npm start`.
