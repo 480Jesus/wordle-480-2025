@@ -1,4 +1,4 @@
-export type CellState = "rightLetter" | "MisplacedLetter" | "wrongLetter";
+export type CellState = "RightLetter" | "MisplacedLetter" | "WrongLetter";
 
 export type SubmitOutcome =
     "continue"
