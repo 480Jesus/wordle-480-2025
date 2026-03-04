@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     justify-items: center;
     display: grid;
 }
@@ -9,8 +9,8 @@ body {
 header {
     text-align: center;
     display: inline-flex;
-    align-items: center; 
-    margin-bottom: 12vh;
+    align-items: center;
+    margin-bottom: 3vh;
 }
 
 h1 {
@@ -36,24 +36,30 @@ h1 {
     justify-items: center;
 }
 
-#word_grid{
+#word_grid {
     margin: 1rem;
     display: grid;
-    grid-template-rows: repeat(6, 1fr);   
+    grid-template-rows: repeat(6, 1fr);
 }
-.row {  
+
+.row {
     display: flex;
     flex-direction: row;
     flex-basis: content;
 }
-.col0, .col1, .col2, .col3, .col4 {
+
+.col0,
+.col1,
+.col2,
+.col3,
+.col4 {
     background-color: chocolate;
 }
 
 .cell {
     border: 1px solid #adadad;
-    width: 3vw;
-    height: 6vh;
+    width: 4.5vw;
+    height: 8vh;
     margin: .15rem;
     background-color: white;
     font-size: 2em;
@@ -61,58 +67,65 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: .4rem;
 }
+
 #keyboard {
-    margin-top: 12vh;
+    margin-top: 3vh;
 }
 
 .key {
-    border-radius: .3rem;
+    border-radius: .4rem;
     border: none;
-    width: 2.5vw;
-    height: 6.5vh;
-    margin: .15rem .15rem .2rem .15rem;
-    padding: 1.1rem;
-    font-size: 1.15em;
+    min-width: 3.2rem;
+    height: 3.8rem;
+    margin: .2rem;
+    font-size: 1.1em;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #E2E8F0;
+    padding: 0;
 }
 
-.key:hover, .top-btn:hover {
-    color:#2A9D8F;
+.key:hover,
+.top-btn:hover {
+    background-color: #B8BCBF;
+    color: inherit;
 }
 
-.key:active, .top-btn:active {
+.key:active,
+.top-btn:active {
     background-color: #577590;
     color: white;
 }
 
-.k-back {
-    flex-basis: content;
-    padding-top: .75rem;
-}
 .k-enter {
-    min-width: fit-content;
-    
+    min-width: 5.5rem;
+}
+
+.k-back {
+    min-width: 4.5rem;
 }
 
 .cell-orange {
     background-color: #C9B459;
     color: white;
 }
+
 .cell-green {
     background-color: #6AAA64;
     color: #ffffff;
 }
-.cell-grey{
+
+.cell-grey {
     background-color: #787C7E;
     color: #ffffff;
 }
 
-.keyPressed{
+.keyPressed {
     background-color: #787C7E;
     color: #ffffff;
 }
