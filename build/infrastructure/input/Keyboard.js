@@ -10,14 +10,14 @@ export function isLetterCode(code) {
 export function isEnterCode(code) {
     return code === "Enter";
 }
-export function isBackspace(code) {
+export function isBackspaceCode(code) {
     return code === "BackSpace";
 }
 export function codeToLetter(code) {
     return code === SEMICOLON_CODE ? "Ñ" : code.replace("Key", "");
 }
 // code ="KeyT"
-// code === semicolon -> false 
+// code === semicolon -> false
 //: code.replace("Key", "")
 // Esto elimina  "Key" del texto y te deja "T"
 //codeToLetter("KeyT") -> "T"

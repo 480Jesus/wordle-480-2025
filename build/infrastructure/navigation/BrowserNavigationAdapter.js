@@ -1,15 +1,12 @@
-var InMemoryWordProvider = /** @class */ (function () {
-    function InMemoryWordProvider() {
+var BrowserNavigationAdapter = /** @class */ (function () {
+    function BrowserNavigationAdapter() {
     }
-    InMemoryWordProvider.prototype.getRandomWord = function () {
-        throw new Error("Method not implemented.");
-    };
-    InMemoryWordProvider.prototype.goToWin = function () {
+    BrowserNavigationAdapter.prototype.goToWin = function () {
         location.assign("/winner");
     };
-    InMemoryWordProvider.prototype.goToLose = function () {
+    BrowserNavigationAdapter.prototype.goToLose = function () {
         location.assign("/loser");
     };
-    return InMemoryWordProvider;
+    return BrowserNavigationAdapter;
 }());
-export { InMemoryWordProvider };
+export { BrowserNavigationAdapter };

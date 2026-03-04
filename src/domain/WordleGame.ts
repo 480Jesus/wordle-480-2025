@@ -34,26 +34,30 @@ export class WordleGame{
     }
 
     submitGuess(): SubmitResult {
-
-        if (this.currentGuess.length !== this.maxWordSize) {
-            return {outcome:"invalid-lenghth", states: null, submittedGuess: null };
-        }
+        if (this.currentGuess.length !== this.maxWordSize)
+            return {
+                outcome: "invalid-length", states: null, submittedGuess: null
+            };
 
         const submittedGuess = this.currentGuess;
         const states = this.evaluator.evaluate(this.targetWord, submittedGuess);
 
         if (submittedGuess === this.targetWord) {
-            return {outcome: "win", states, submittedGuess };
+            return {
+                outcome: "win", states, submittedGuess
+            };
         }
-        
+
         if (this.currentTurn >= this.maxAttempts) {
-            return {outcome: "lose", states, submittedGuess };
+            return {
+                outcome: "lose", states, submittedGuess
+            };
         }
 
         this.currentTurn += 1;
+
         this.currentGuess = "";
-        return {outcome: "continue", states, submittedGuess };
+
+        return { outcome: "continue", states, submittedGuess };
     }
 }
-
-

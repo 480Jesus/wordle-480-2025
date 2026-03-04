@@ -3,7 +3,7 @@ var WordEvaluator = /** @class */ (function () {
     }
     WordEvaluator.prototype.evaluate = function (target, guess) {
         var _a, _b;
-        var result = new Array(guess.length).fill("wrongLetter");
+        var result = new Array(guess.length).fill("WrongLetter");
         var remaining = new Map();
         // Marcar aciertos exactos y cuenta las letras sobrantes de target
         for (var i = 0; i < target.length; i++) {

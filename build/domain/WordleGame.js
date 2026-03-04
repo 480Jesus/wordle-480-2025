@@ -14,7 +14,7 @@ var WordleGame = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(WordleGame.prototype, "guessLength", {
+    Object.defineProperty(WordleGame.prototype, "guessLenght", {
         get: function () {
             return this.currentGuess.length;
         },
@@ -27,23 +27,32 @@ var WordleGame = /** @class */ (function () {
         this.currentGuess += letter;
         return true;
     };
-    WordleGame.prototype.backspace = function () {
+    WordleGame.prototype.backSpace = function () {
         if (this.currentGuess.length === 0)
             return false;
-        this.currentGuess = this.currentGuess.slice(0, -1);
+        this.currentGuess.slice(0, -1);
         return true;
     };
     WordleGame.prototype.submitGuess = function () {
-        if (this.currentGuess.length !== this.maxWordSize) {
-            return { outcome: "invalid-lenghth", states: null, submittedGuess: null };
-        }
+        if (this.currentGuess.length !== this.maxWordSize)
+            return {
+                outcome: "invalid-length", states: null, submittedGuess: null
+            };
         var submittedGuess = this.currentGuess;
         var states = this.evaluator.evaluate(this.targetWord, submittedGuess);
         if (submittedGuess === this.targetWord) {
-            return { outcome: "win", states: states, submittedGuess: submittedGuess };
+            return {
+                outcome: "win",
+                states: states,
+                submittedGuess: submittedGuess
+            };
         }
         if (this.currentTurn >= this.maxAttempts) {
-            return { outcome: "lose", states: states, submittedGuess: submittedGuess };
+            return {
+                outcome: "lose",
+                states: states,
+                submittedGuess: submittedGuess
+            };
         }
         this.currentTurn += 1;
         this.currentGuess = "";

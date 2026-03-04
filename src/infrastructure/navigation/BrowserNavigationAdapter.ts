@@ -1,16 +1,11 @@
 import { NavigationPort } from "../../application/ports/NavigationPort";
 
-export class InMemoryWordProvider implements NavigationPort{
-    getRandomWord() {
-        throw new Error("Method not implemented.");
-    }
-   
+export class BrowserNavigationAdapter implements NavigationPort {
     goToWin(): void {
         location.assign("/winner");
-
     }
-    goToLose(): void {
-        location.assign("/loser")
 
+    goToLose(): void {
+        location.assign("/loser");
     }
 }
