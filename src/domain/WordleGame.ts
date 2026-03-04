@@ -2,7 +2,7 @@ import { SubmitResult } from "./types";
 import { WorldEvaluator } from "./WordEvaluator";
 
 
-export class WordleGamem{
+export class WordleGame{
     private currentGuess = "";
     private currentTurn = 1;
 

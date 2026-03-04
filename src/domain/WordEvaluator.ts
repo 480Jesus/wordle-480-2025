@@ -1,6 +1,6 @@
 import { CellState } from "./types";
 
-export class WorldEvaluator{
+export class WordEvaluator{
 
     evaluate(target: string, guess:string): CellState[] {
         const result: CellState[] = new Array(guess.length).fill("wrongLetter");
