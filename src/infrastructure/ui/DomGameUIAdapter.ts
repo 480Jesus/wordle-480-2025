@@ -2,7 +2,7 @@ import { GameUIPort } from "../../application/ports/GameUIPort";
 import { CellState } from "../../domain/types";
 
 
-export class DomKeyboardInputAdapter implements GameUIPort {
+export class DomGameUIAdapter implements GameUIPort {
 
     private readonly cssByState: Record<CellState, string> = {
         RightLetter: "cell-green",

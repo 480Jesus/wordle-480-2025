@@ -17,7 +17,7 @@ export function codeToLetter(code) {
     return code === SEMICOLON_CODE ? "Ñ" : code.replace("Key", "");
 }
 // code ="KeyT"
-// code === semicolon -> false
+// code === semicolon -> false 
 //: code.replace("Key", "")
 // Esto elimina  "Key" del texto y te deja "T"
 //codeToLetter("KeyT") -> "T"

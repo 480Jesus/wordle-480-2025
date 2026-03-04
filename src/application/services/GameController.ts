@@ -15,15 +15,15 @@ export class GameController {
             const letter = codeToLetter(code);
             const added = this.game.addLetter(letter);
             if (added) {
-                this.ui.setLetter(this.game.turn, this.game.guessLenght - 1, letter);
+                this.ui.setLetter(this.game.turn, this.game.guessLength - 1, letter);
                 this.ui.paintKey(code);
             }
             return;
         }
 
         if (isBackspaceCode(code)) {
-            const previousLenght = this.game.guessLenght;
-            const removed = this.game.backSpace();
+            const previousLenght = this.game.guessLength;
+            const removed = this.game.backspace();
             if (removed) {
                 this.ui.deleteLetter(this.game.turn, previousLenght - 1);
             }

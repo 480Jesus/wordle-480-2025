@@ -14,7 +14,7 @@ var WordleGame = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(WordleGame.prototype, "guessLenght", {
+    Object.defineProperty(WordleGame.prototype, "guessLength", {
         get: function () {
             return this.currentGuess.length;
         },
@@ -27,10 +27,10 @@ var WordleGame = /** @class */ (function () {
         this.currentGuess += letter;
         return true;
     };
-    WordleGame.prototype.backSpace = function () {
+    WordleGame.prototype.backspace = function () {
         if (this.currentGuess.length === 0)
             return false;
-        this.currentGuess.slice(0, -1);
+        this.currentGuess = this.currentGuess.slice(0, -1);
         return true;
     };
     WordleGame.prototype.submitGuess = function () {

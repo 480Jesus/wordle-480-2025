@@ -10,14 +10,14 @@ var GameController = /** @class */ (function () {
             var letter = codeToLetter(code);
             var added = this.game.addLetter(letter);
             if (added) {
-                this.ui.setLetter(this.game.turn, this.game.guessLenght - 1, letter);
+                this.ui.setLetter(this.game.turn, this.game.guessLength - 1, letter);
                 this.ui.paintKey(code);
             }
             return;
         }
         if (isBackspaceCode(code)) {
-            var previousLenght = this.game.guessLenght;
-            var removed = this.game.backSpace();
+            var previousLenght = this.game.guessLength;
+            var removed = this.game.backspace();
             if (removed) {
                 this.ui.deleteLetter(this.game.turn, previousLenght - 1);
             }

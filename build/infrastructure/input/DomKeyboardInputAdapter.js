@@ -1,7 +1,7 @@
 var DomKeyboardInputAdapter = /** @class */ (function () {
     function DomKeyboardInputAdapter() {
     }
-    DomKeyboardInputAdapter.prototype.suscribe = function (handler) {
+    DomKeyboardInputAdapter.prototype.subscribe = function (handler) {
         Array.from(document.getElementsByClassName("key")).forEach(function (element) {
             element.addEventListener("click", function (e) {
                 var button = e.currentTarget;
@@ -12,7 +12,6 @@ var DomKeyboardInputAdapter = /** @class */ (function () {
             handler(e.code);
         });
     };
-    ;
     return DomKeyboardInputAdapter;
 }());
 export { DomKeyboardInputAdapter };

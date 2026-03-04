@@ -13,7 +13,7 @@ export function isEnterCode(code: string): boolean{
     return code === "Enter";
 }
 
-export function isBackspace(code: string): boolean{
+export function isBackspaceCode(code: string): boolean{
     return code === "BackSpace";
 }
 
