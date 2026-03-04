@@ -1,37 +1,35 @@
 import { SubmitResult } from "./types";
-import { WordEvaluator } from "./WordEvaluator";
+import { WorldEvaluator } from "./WordEvaluator";
 
 
-export class WordleGame {
+export class WordleGame{
     private currentGuess = "";
     private currentTurn = 1;
 
-    constructor(
+    constructor (
         private readonly targetWord: string,
         private readonly maxWordSize: number,
         private readonly maxAttempts: number,
-        private readonly evaluator: WordEvaluator) { }
-
+        private readonly evaluator: WorldEvaluator,
+    ) {}
 
     get turn(): number {
         return this.currentTurn;
     }
 
-    get guessLenght(): number {
+    get guessLength(): number {
         return this.currentGuess.length;
     }
 
     addLetter(letter: string): boolean {
-        if (this.currentGuess.length >= this.maxWordSize)
-            return false;
+        if (this.currentGuess.length >= this.maxWordSize) return false;
         this.currentGuess += letter;
         return true;
     }
 
-    backSpace(): boolean {
-        if (this.currentGuess.length === 0)
-            return false;
-        this.currentGuess.slice(0, -1);
+    backspace(): boolean {
+        if (this.currentGuess.length === 0) return false;
+        this.currentGuess = this.currentGuess.slice(0, -1);
         return true;
     }
 

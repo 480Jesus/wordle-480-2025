@@ -1,3 +1,3 @@
 export interface RandomWordPort {
-    getRandomWord(): string;
+ getRandomWord(): string;
 }

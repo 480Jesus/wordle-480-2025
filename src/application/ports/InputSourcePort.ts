@@ -1,5 +1,5 @@
-export type InputHandler = (input: string) => void;
+export type InputHandler = (code:String) => void;
 
 export interface InputSourcePort {
-    suscribe(handler: InputHandler): void;
+    subscribe (handler: InputHandler): void;
 }
