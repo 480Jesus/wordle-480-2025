@@ -13,7 +13,7 @@ export class WordleGame {
         private readonly evaluator: WordEvaluator) { }
 
 
-    get Turn(): number {
+    get turn(): number {
         return this.currentTurn;
     }
 
