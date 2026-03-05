@@ -1,4 +1,4 @@
-const SEMICOLON_CODE = "semicolon";
+const SEMICOLON_CODE = "Semicolon";
 const LETTER_CODE = new Set([
     "KeyQ","KeyW","KeyE","KeyR","KeyT","KeyY","KeyU","KeyI","KeyO","KeyP",
     "KeyA","KeyS","KeyD","KeyF","KeyG","KeyH","KeyJ","KeyK","KeyL",
@@ -9,21 +9,14 @@ export function isLetterCode(code: string): boolean {
     return LETTER_CODE.has(code);
 }
 
-export function isEnterCode(code: string): boolean{
+export function isEnterCode(code: string): boolean {
     return code === "Enter";
 }
 
-export function isBackspace(code: string): boolean{
-    return code === "BackSpace";
+export function isBackspace(code: string): boolean {
+    return code === "Backspace"; // ✅ Corregido: era "BackSpace" con S mayúscula
 }
 
-export function codeToLetter(code: string): string{
-    return code === SEMICOLON_CODE ? "Ñ" : code.replace("Key","");
+export function codeToLetter(code: string): string {
+    return code === SEMICOLON_CODE ? "Ñ" : code.replace("Key", "");
 }
-
-// code ="KeyT"
-// code === semicolon -> false 
-//: code.replace("Key", "")
-// Esto elimina  "Key" del texto y te deja "T"
-//codeToLetter("KeyT") -> "T"
-//SEMICOLON_CODE ? "Ñ" sustuye semicolom por la Ñ
