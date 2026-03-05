@@ -1,5 +1,5 @@
-var WordleGame = /** @class */ (function () {
-    function WordleGame(targetWord, maxWordSize, maxAttempts, evaluator) {
+export class WordleGame {
+    constructor(targetWord, maxWordSize, maxAttempts, evaluator) {
         this.targetWord = targetWord;
         this.maxWordSize = maxWordSize;
         this.maxAttempts = maxAttempts;
@@ -7,57 +7,43 @@ var WordleGame = /** @class */ (function () {
         this.currentGuess = "";
         this.currentTurn = 1;
     }
-    Object.defineProperty(WordleGame.prototype, "turn", {
-        get: function () {
-            return this.currentTurn;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(WordleGame.prototype, "guessLength", {
-        get: function () {
-            return this.currentGuess.length;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    WordleGame.prototype.addLetter = function (letter) {
+    get turn() {
+        return this.currentTurn;
+    }
+    get guessLength() {
+        return this.currentGuess.length;
+    }
+    addLetter(letter) {
         if (this.currentGuess.length >= this.maxWordSize)
             return false;
         this.currentGuess += letter;
         return true;
-    };
-    WordleGame.prototype.backspace = function () {
+    }
+    backspace() {
         if (this.currentGuess.length === 0)
             return false;
         this.currentGuess = this.currentGuess.slice(0, -1);
         return true;
-    };
-    WordleGame.prototype.submitGuess = function () {
+    }
+    submitGuess() {
         if (this.currentGuess.length !== this.maxWordSize)
             return {
                 outcome: "invalid-length", states: null, submittedGuess: null
             };
-        var submittedGuess = this.currentGuess;
-        var states = this.evaluator.evaluate(this.targetWord, submittedGuess);
+        const submittedGuess = this.currentGuess;
+        const states = this.evaluator.evaluate(this.targetWord, submittedGuess);
         if (submittedGuess === this.targetWord) {
             return {
-                outcome: "win",
-                states: states,
-                submittedGuess: submittedGuess
+                outcome: "win", states, submittedGuess
             };
         }
         if (this.currentTurn >= this.maxAttempts) {
             return {
-                outcome: "lose",
-                states: states,
-                submittedGuess: submittedGuess
+                outcome: "lose", states, submittedGuess
             };
         }
         this.currentTurn += 1;
         this.currentGuess = "";
-        return { outcome: "continue", states: states, submittedGuess: submittedGuess };
-    };
-    return WordleGame;
-}());
-export { WordleGame };
+        return { outcome: "continue", states, submittedGuess };
+    }
+}

@@ -1,12 +1,8 @@
-var BrowserNavigationAdapter = /** @class */ (function () {
-    function BrowserNavigationAdapter() {
-    }
-    BrowserNavigationAdapter.prototype.goToWin = function () {
+export class BrowserNavigationAdapter {
+    goToWin() {
         location.assign("/winner");
-    };
-    BrowserNavigationAdapter.prototype.goToLose = function () {
+    }
+    goToLose() {
         location.assign("/loser");
-    };
-    return BrowserNavigationAdapter;
-}());
-export { BrowserNavigationAdapter };
+    }
+}
