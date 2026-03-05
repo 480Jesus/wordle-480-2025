@@ -1,5 +1,5 @@
 import { SubmitResult } from "./types";
-import { WorldEvaluator } from "./WordEvaluator";
+import { WordEvaluator } from "./WordEvaluator";
 
 
 export class WordleGame{
@@ -10,7 +10,7 @@ export class WordleGame{
         private readonly targetWord: string,
         private readonly maxWordSize: number,
         private readonly maxAttempts: number,
-        private readonly evaluator: WorldEvaluator,
+        private readonly evaluator: WordEvaluator,
     ) {}
 
     get turn(): number {
