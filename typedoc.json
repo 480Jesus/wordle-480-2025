@@ -1,0 +1,10 @@
+{
+  "entryPointStrategy": "expand",
+  "entryPoints": ["src"],
+  "out": "docs",
+  "tsconfig": "tsconfig.json",
+  "name": "Wordle Hexagonal Architecture",
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": false
+}
