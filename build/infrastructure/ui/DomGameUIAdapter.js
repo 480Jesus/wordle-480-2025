@@ -1,37 +1,63 @@
-var DomKeyboardInputAdapter = /** @class */ (function () {
-    function DomKeyboardInputAdapter() {
+export class DomGameUIAdapter {
+    constructor() {
         this.cssByState = {
             RightLetter: "cell-green",
             MisplacedLetter: "cell-orange",
             WrongLetter: "cell-grey",
         };
+        // Prioridad: verde > naranja > gris (no degradar una tecla ya mejor coloreada)
+        this.statePriority = {
+            RightLetter: 3,
+            MisplacedLetter: 2,
+            WrongLetter: 1,
+        };
     }
-    DomKeyboardInputAdapter.prototype.getCell = function (turn, position) {
-        var row = document.getElementById("row_".concat(turn));
+    getCell(turn, position) {
+        const row = document.getElementById(`row_${turn}`);
         if (!row)
-            throw new Error("Row not found: row_".concat(turn));
-        var cell = Array.from(row.children)[position];
+            throw new Error(`Row not found: row_${turn}`);
+        const cell = Array.from(row.children)[position];
         if (!cell)
-            throw new Error("Cell not found at row ".concat(turn, ", position ").concat(position));
+            throw new Error(`Cell not found at row ${turn}, position ${position}`);
         return cell;
-    };
-    DomKeyboardInputAdapter.prototype.setLetter = function (turn, position, letter) {
+    }
+    setLetter(turn, position, letter) {
         this.getCell(turn, position).textContent = letter;
-    };
-    DomKeyboardInputAdapter.prototype.deleteLetter = function (turn, position) {
+    }
+    deleteLetter(turn, position) {
         this.getCell(turn, position).textContent = "";
-    };
-    DomKeyboardInputAdapter.prototype.paintCell = function (turn, position, state) {
+    }
+    paintCell(turn, position, state) {
         this.getCell(turn, position).classList.add(this.cssByState[state]);
-    };
-    DomKeyboardInputAdapter.prototype.paintKey = function (code) {
-        if (code === "Enter" || code === "Backspace")
+    }
+    paintKey(code, state) {
+        const button = Array.from(document.getElementsByClassName("key"))
+            .find((el) => el.value === code);
+        if (!button)
             return;
-        var button = Array.from(document.getElementsByClassName("key"))
-            .find(function (el) { return el.value === code; });
-        if (button)
-            button.classList.add("keyPressed");
-    };
-    return DomKeyboardInputAdapter;
-}());
-export { DomKeyboardInputAdapter };
+        const currentPriority = this.getCurrentPriority(button);
+        const newPriority = this.statePriority[state];
+        if (newPriority > currentPriority) {
+            button.classList.remove("cell-green", "cell-orange", "cell-grey", "keyPressed");
+            button.classList.add(this.cssByState[state]);
+        }
+    }
+    getCurrentPriority(button) {
+        if (button.classList.contains("cell-green"))
+            return this.statePriority["RightLetter"];
+        if (button.classList.contains("cell-orange"))
+            return this.statePriority["MisplacedLetter"];
+        if (button.classList.contains("cell-grey"))
+            return this.statePriority["WrongLetter"];
+        return 0;
+    }
+    shakeRow(turn) {
+        const row = document.getElementById(`row_${turn}`);
+        if (!row)
+            return;
+        row.classList.add("shake");
+        row.addEventListener("animationend", () => {
+            row.classList.remove("shake");
+        }, { once: true });
+    }
+}
