@@ -5,7 +5,6 @@ export class DomGameUIAdapter {
             MisplacedLetter: "cell-orange",
             WrongLetter: "cell-grey",
         };
-        // Prioridad: verde > naranja > gris (no degradar una tecla ya mejor coloreada)
         this.statePriority = {
             RightLetter: 3,
             MisplacedLetter: 2,
