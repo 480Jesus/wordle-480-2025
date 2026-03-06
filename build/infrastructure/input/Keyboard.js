@@ -11,7 +11,7 @@ export function isEnterCode(code) {
     return code === "Enter";
 }
 export function isBackspace(code) {
-    return code === "Backspace"; // ✅ Corregido: era "BackSpace" con S mayúscula
+    return code === "Backspace";
 }
 export function codeToLetter(code) {
     return code === SEMICOLON_CODE ? "Ñ" : code.replace("Key", "");

@@ -9,7 +9,6 @@ export class DomGameUIAdapter implements GameUIPort {
         WrongLetter: "cell-grey",
     };
 
-    // Prioridad: verde > naranja > gris (no degradar una tecla ya mejor coloreada)
     private readonly statePriority: Record<CellState, number> = {
         RightLetter: 3,
         MisplacedLetter: 2,
@@ -36,21 +35,17 @@ export class DomGameUIAdapter implements GameUIPort {
         this.getCell(turn, position).classList.add(this.cssByState[state]);
     }
 
-    // ✅ Ahora recibe el estado y solo pinta si el nuevo estado tiene mayor prioridad
     paintKey(code: string, state: CellState): void {
         const button = Array.from(document.getElementsByClassName("key"))
             .find((el) => (el as HTMLButtonElement).value === code) as HTMLButtonElement | undefined;
 
         if (!button) return;
 
-        // Comprobar si ya tiene un color con mayor o igual prioridad
         const currentPriority = this.getCurrentPriority(button);
         const newPriority = this.statePriority[state];
 
         if (newPriority > currentPriority) {
-            // Quitar clases de color anteriores
             button.classList.remove("cell-green", "cell-orange", "cell-grey", "keyPressed");
-            // Añadir la nueva clase de color
             button.classList.add(this.cssByState[state]);
         }
     }
@@ -62,7 +57,6 @@ export class DomGameUIAdapter implements GameUIPort {
         return 0;
     }
 
-    // ✅ Sacude la fila cuando el usuario pulsa Enter con menos de 5 letras
     shakeRow(turn: number): void {
         const row = document.getElementById(`row_${turn}`);
         if (!row) return;

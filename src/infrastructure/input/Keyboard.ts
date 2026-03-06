@@ -14,7 +14,7 @@ export function isEnterCode(code: string): boolean {
 }
 
 export function isBackspace(code: string): boolean {
-    return code === "Backspace"; // ✅ Corregido: era "BackSpace" con S mayúscula
+    return code === "Backspace";
 }
 
 export function codeToLetter(code: string): string {

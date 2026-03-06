@@ -30,19 +30,15 @@ export class DomGameUIAdapter {
     paintCell(turn, position, state) {
         this.getCell(turn, position).classList.add(this.cssByState[state]);
     }
-    // ✅ Ahora recibe el estado y solo pinta si el nuevo estado tiene mayor prioridad
     paintKey(code, state) {
         const button = Array.from(document.getElementsByClassName("key"))
             .find((el) => el.value === code);
         if (!button)
             return;
-        // Comprobar si ya tiene un color con mayor o igual prioridad
         const currentPriority = this.getCurrentPriority(button);
         const newPriority = this.statePriority[state];
         if (newPriority > currentPriority) {
-            // Quitar clases de color anteriores
             button.classList.remove("cell-green", "cell-orange", "cell-grey", "keyPressed");
-            // Añadir la nueva clase de color
             button.classList.add(this.cssByState[state]);
         }
     }
@@ -55,7 +51,6 @@ export class DomGameUIAdapter {
             return this.statePriority["WrongLetter"];
         return 0;
     }
-    // ✅ Sacude la fila cuando el usuario pulsa Enter con menos de 5 letras
     shakeRow(turn) {
         const row = document.getElementById(`row_${turn}`);
         if (!row)

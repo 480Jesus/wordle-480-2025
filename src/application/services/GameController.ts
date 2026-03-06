@@ -5,6 +5,7 @@ import { GameUIPort } from "../ports/GameUIPort";
 import { NavigationPort } from "../ports/NavigationPort";
 
 export class GameController {
+
     constructor(
         private readonly game: WordleGame,
         private readonly ui: GameUIPort,

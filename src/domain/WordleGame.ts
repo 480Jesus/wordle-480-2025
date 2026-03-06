@@ -3,8 +3,10 @@ import { WordEvaluator } from "./WordEvaluator";
 
 
 export class WordleGame{
+
     private currentGuess = "";
-    private currentTurn = 1;
+
+    private currentTurn = 1; 
 
     constructor (
         private readonly targetWord: string,
@@ -27,11 +29,13 @@ export class WordleGame{
         return true;
     }
 
+
     backspace(): boolean {
         if (this.currentGuess.length === 0) return false;
         this.currentGuess = this.currentGuess.slice(0, -1);
         return true;
     }
+
 
     submitGuess(): SubmitResult {
         if (this.currentGuess.length !== this.maxWordSize)

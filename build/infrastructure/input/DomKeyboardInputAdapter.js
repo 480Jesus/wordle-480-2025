@@ -1,16 +1,13 @@
 export class DomKeyboardInputAdapter {
     subscribe(handler) {
-        // Teclado visual (botones en pantalla)
         Array.from(document.getElementsByClassName("key")).forEach((element) => {
             element.addEventListener("click", (e) => {
-                e.preventDefault(); // ✅ Evita que el click dispare también un keydown
+                e.preventDefault();
                 const button = e.currentTarget;
                 handler(button.value);
             });
         });
-        // Teclado físico
         document.addEventListener("keydown", (e) => {
-            // ✅ Evita que Enter físico se ejecute dos veces si el foco está en un botón
             if (e.code === "Enter" && e.target.tagName === "BUTTON") {
                 e.preventDefault();
                 handler("Enter");
