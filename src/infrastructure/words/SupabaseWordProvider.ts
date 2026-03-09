@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import type { RandomWordPort } from "../../application/ports/RandomWordPort";
+import type { RandomWordPort } from "../../application/ports/RandomWordPort.js";
 
 // Cache sencilla
 let cachedWord: string | null = null;
@@ -28,12 +28,17 @@ export class SupabaseWordProvider implements RandomWordPort {
       throw new Error("Cannot get word from database");
     }
 
-    cachedWord = data[0].value;
-    return cachedWord;
+    const selectedWord = data?.[0]?.value;
+    if (typeof selectedWord !== "string" || selectedWord.length === 0) {
+      throw new Error("Invalid word received from database");
+    }
+
+    cachedWord = selectedWord;
+    return selectedWord;
   }
 
   //Método que usamos cuando el usuario gana o pierde
-  resetWord() {
+  resetWord(): void {
     cachedWord = null;
   }
 }

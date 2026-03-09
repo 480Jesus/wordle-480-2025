@@ -1,4 +1,4 @@
 export interface RandomWordPort {
- getRandomWord(): string;
+ getRandomWord(): Promise<string>;
  resetWord(): void;
 }
