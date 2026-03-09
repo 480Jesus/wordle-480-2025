@@ -1,17 +1,12 @@
-/**
- * Test de integración para el endpoint de salud.
- * Verifica que el servidor responda correctamente al endpoint /health.
- * Para ejecutar: npm test
- * Para añadir más tests: crea nuevos archivos .test.ts en esta carpeta
- */
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
+import "../src/app";
 
-import supertest from 'supertest';
-import appInstance from '../src/app';
-
-describe('Health Endpoint', () => {
-  it('should return 200 and text OK', async () => {
-    const response = await supertest(appInstance).get('/health');
-    expect(response.status).toBe(200);
-    expect(response.text).toBe('OK');
+describe("Health Endpoint", () => {
+  it("should return 200 and text OK", async () => {
+    const port = Number(process.env.PORT) || 3000;
+    const response = await fetch(`http://127.0.0.1:${port}/health`);
+    assert.equal(response.status, 200);
+    assert.equal(await response.text(), "OK");
   });
 });
