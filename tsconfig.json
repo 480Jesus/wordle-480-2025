@@ -8,9 +8,8 @@
     "rootDir": "src",
     "types": ["node"],
     "strict": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts"],
