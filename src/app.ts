@@ -13,6 +13,14 @@ app.get("/", (_req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
 
+app.get("/winner", (_req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "..", "public", "winner.html"));
+});
+
+app.get("/loser", (_req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "..", "public", "loser.html"));
+});
+
 app.get("/health", (_req: Request, res: Response) => {
   res.status(200).send("OK");
 });

@@ -1,22 +1,25 @@
 export class BrowserNavigationAdapter {
     goToWin() {
-        this.showResultScreen("winner-screen");
+        void this.showResultPage("winner.html");
     }
     goToLose() {
-        this.showResultScreen("loser-screen");
+        void this.showResultPage("loser.html");
     }
-    showResultScreen(screenId) {
+    async showResultPage(page) {
         const game = document.getElementById("main_container");
-        const winner = document.getElementById("winner-screen");
-        const loser = document.getElementById("loser-screen");
-        if (!game || !winner || !loser)
+        const result = document.getElementById("result-screen");
+        if (!game || !result)
             return;
         game.classList.add("hidden");
-        winner.classList.add("hidden");
-        loser.classList.add("hidden");
-        const selected = document.getElementById(screenId);
-        if (!selected)
-            return;
-        selected.classList.remove("hidden");
+        result.classList.remove("hidden");
+        try {
+            const response = await fetch(page);
+            const html = await response.text();
+            const parsed = new DOMParser().parseFromString(html, "text/html");
+            result.innerHTML = parsed.body ? parsed.body.innerHTML : html;
+        }
+        catch {
+            result.innerHTML = page === "winner.html" ? "<h1>HAS GANADO!!!</h1>" : "<h1>HAS PALMADO</h1>";
+        }
     }
 }

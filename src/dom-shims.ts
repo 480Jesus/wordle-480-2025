@@ -20,6 +20,7 @@ declare global {
   interface HTMLElement {
     tagName: string;
     textContent: string | null;
+    innerHTML: string;
     children: ArrayLike<HTMLElement>;
     classList: ClassList;
     addEventListener(
@@ -42,6 +43,13 @@ declare global {
   const location: {
     assign(url: string): void;
   };
+
+  class DOMParser {
+    parseFromString(
+      input: string,
+      mimeType: string
+    ): { body: { innerHTML: string } | null };
+  }
 }
 
 export {};

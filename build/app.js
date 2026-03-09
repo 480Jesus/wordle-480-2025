@@ -8,6 +8,12 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.get("/", (_req, res) => {
     res.sendFile(path.join(__dirname, "..", "public", "index.html"));
 });
+app.get("/winner", (_req, res) => {
+    res.sendFile(path.join(__dirname, "..", "public", "winner.html"));
+});
+app.get("/loser", (_req, res) => {
+    res.sendFile(path.join(__dirname, "..", "public", "loser.html"));
+});
 app.get("/health", (_req, res) => {
     res.status(200).send("OK");
 });

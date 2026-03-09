@@ -1,27 +1,30 @@
-import { NavigationPort } from "../../application/ports/NavigationPort.js";
+﻿import { NavigationPort } from "../../application/ports/NavigationPort.js";
 
 export class BrowserNavigationAdapter implements NavigationPort {
-    
+
     goToWin(): void {
-        this.showResultScreen("winner-screen");
+        void this.showResultPage("winner.html");
     }
 
     goToLose(): void {
-        this.showResultScreen("loser-screen");
+        void this.showResultPage("loser.html");
     }
 
-    private showResultScreen(screenId: "winner-screen" | "loser-screen"): void {
+    private async showResultPage(page: "winner.html" | "loser.html"): Promise<void> {
         const game = document.getElementById("main_container");
-        const winner = document.getElementById("winner-screen");
-        const loser = document.getElementById("loser-screen");
-        if (!game || !winner || !loser) return;
+        const result = document.getElementById("result-screen");
+        if (!game || !result) return;
 
         game.classList.add("hidden");
-        winner.classList.add("hidden");
-        loser.classList.add("hidden");
+        result.classList.remove("hidden");
 
-        const selected = document.getElementById(screenId);
-        if (!selected) return;
-        selected.classList.remove("hidden");
+        try {
+            const response = await fetch(page);
+            const html = await response.text();
+            const parsed = new DOMParser().parseFromString(html, "text/html");
+            result.innerHTML = parsed.body ? parsed.body.innerHTML : html;
+        } catch {
+            result.innerHTML = page === "winner.html" ? "<h1>HAS GANADO!!!</h1>" : "<h1>HAS PALMADO</h1>";
+        }
     }
 }
