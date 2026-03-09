@@ -1,0 +1,59 @@
+﻿# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: build-test-deploy
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 📦 Install dependencies
+        run: npm ci --include=dev
+
+      - name: 🧱 Build project
+        run: npm run build
+
+      - name: 🧪 Run tests
+        run: npm test
+
+      - name: 🚀 Deploy to Render (retry on 409) — only on push
+        if: ${{ github.event_name == 'push' && success() && secrets.RENDER_DEPLOY_HOOK_URL != '' }}
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          echo "Intentando lanzar el deploy…"
+          for i in 1 2 3; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$HOOK")
+            if [ "$STATUS" = "409" ]; then
+              echo "Render ocupado (409). Reintentando en 10s ($i/3)…"
+              sleep 10
+            elif [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
+              echo "Deploy lanzado correctamente."
+              exit 0
+            else
+              echo "Render devolvió HTTP $STATUS."
+              exit 1
+            fi
+          done
+          echo "Falló después de 3 intentos."
+          exit 1
+
+      - name: ℹ️ Deploy skipped
+        if: ${{ github.event_name == 'push' && success() && secrets.RENDER_DEPLOY_HOOK_URL == '' }}
+        run: echo "RENDER_DEPLOY_HOOK_URL no está configurado. Solo build + test."
