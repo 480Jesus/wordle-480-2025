@@ -1,24 +1,22 @@
-import express, { Request, Response } from "express";
+﻿import express, { Request, Response } from "express";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const ROOT_DIR = process.cwd();
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(ROOT_DIR, "public")));
 
 app.get("/", (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+  res.sendFile(path.join(ROOT_DIR, "public", "index.html"));
 });
 
 app.get("/winner", (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "public", "winner.html"));
+  res.sendFile(path.join(ROOT_DIR, "public", "winner.html"));
 });
 
 app.get("/loser", (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "public", "loser.html"));
+  res.sendFile(path.join(ROOT_DIR, "public", "loser.html"));
 });
 
 app.get("/health", (_req: Request, res: Response) => {
@@ -26,8 +24,10 @@ app.get("/health", (_req: Request, res: Response) => {
 });
 
 const PORT = Number(process.env.PORT) || 3000;
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("Server ready on port " + PORT);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log("Server ready on port " + PORT);
+  });
+}
 
 export default app;
