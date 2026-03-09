@@ -1,7 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import type { RandomWordPort } from "../../application/ports/RandomWordPort.js";
 
-// Cache sencilla
 let cachedWord: string | null = null;
 
 export class SupabaseWordProvider implements RandomWordPort {
