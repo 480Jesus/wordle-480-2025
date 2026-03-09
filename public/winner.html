@@ -1,16 +1,125 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Victoria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <title>Victoria - Wordle</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fff;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .tiles {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .tile {
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border-radius: 4px;
+            animation: pop 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        .tile:nth-child(1) { animation-delay: 0.1s; background-color: #6AAA64; color: white; }
+        .tile:nth-child(2) { animation-delay: 0.2s; background-color: #6AAA64; color: white; }
+        .tile:nth-child(3) { animation-delay: 0.3s; background-color: #6AAA64; color: white; }
+        .tile:nth-child(4) { animation-delay: 0.4s; background-color: #6AAA64; color: white; }
+        .tile:nth-child(5) { animation-delay: 0.5s; background-color: #6AAA64; color: white; }
+
+        @keyframes pop {
+            0%   { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+            70%  { transform: scale(1.15) rotate(3deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #6AAA64;
+            text-align: center;
+            animation: fadeUp 0.5s ease 0.7s both;
+        }
+
+        p.sub {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: center;
+            animation: fadeUp 0.5s ease 0.85s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        a.play-again {
+            margin-top: 0.5rem;
+            padding: 0.75rem 2.5rem;
+            background-color: #6AAA64;
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 2rem;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.1s;
+            animation: fadeUp 0.5s ease 1s both;
+        }
+
+        a.play-again:hover {
+            background-color: #2A9D8F;
+            transform: scale(1.04);
+        }
+
+        a.play-again:active {
+            background-color: #577590;
+            transform: scale(0.97);
+        }
+    </style>
 </head>
 
 <body>
-    <h1>HAS GANADO!!!</h1>
-    <p><a href="./index.html">Volver a jugar</a></p>
+    <div class="container">
+        <div class="tiles">
+            <div class="tile">🏆</div>
+            <div class="tile">G</div>
+            <div class="tile">A</div>
+            <div class="tile">N</div>
+            <div class="tile">A</div>
+        </div>
+        <h1>¡HAS GANADO!</h1>
+        <p class="sub">Encontraste la palabra. ¡Eres un crack!</p>
+        <a class="play-again" href="./index.html">Volver a jugar</a>
+    </div>
 </body>
 
 </html>

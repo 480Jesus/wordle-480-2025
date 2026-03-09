@@ -1,30 +1,12 @@
 ﻿import { NavigationPort } from "../../application/ports/NavigationPort.js";
 
 export class BrowserNavigationAdapter implements NavigationPort {
-
+    
     goToWin(): void {
-        void this.showResultPage("winner.html");
+        location.assign("/winner");
     }
 
     goToLose(): void {
-        void this.showResultPage("loser.html");
-    }
-
-    private async showResultPage(page: "winner.html" | "loser.html"): Promise<void> {
-        const game = document.getElementById("main_container");
-        const result = document.getElementById("result-screen");
-        if (!game || !result) return;
-
-        game.classList.add("hidden");
-        result.classList.remove("hidden");
-
-        try {
-            const response = await fetch(page);
-            const html = await response.text();
-            const parsed = new DOMParser().parseFromString(html, "text/html");
-            result.innerHTML = parsed.body ? parsed.body.innerHTML : html;
-        } catch {
-            result.innerHTML = page === "winner.html" ? "<h1>HAS GANADO!!!</h1>" : "<h1>HAS PALMADO</h1>";
-        }
+        location.assign("/loser");
     }
 }
