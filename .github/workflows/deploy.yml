@@ -1,9 +1,8 @@
-name: CI + Deploy to Render
+name: build-test-deploy
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
   workflow_dispatch:
 
 jobs:
@@ -11,33 +10,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1) Descarga del código
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
+      # 2) Setup de Node (usa la versión que utilizas en Render)
       - name: 🟢 Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: npm
 
+      # 3) Instalación limpia respetando package-lock
+      #    --include=dev asegura que se instalen devDependencies (ts, @types, jest…)
       - name: 📦 Install
-        run: npm ci
+        run: npm ci --include=dev
 
-      - name: 🧱 Build (TypeScript)
+      # 4) Compilación TypeScript (si procede)
+      - name: 🧱 Build
         run: npm run build
 
-      - name: 🧪 Test (no bloqueo si no hay tests)
-        run: npm test || echo "No tests or tests failed (non-blocking)."
+      # 5) Tests: Jest/Supertest (si no tienes tests aún, mantén --passWithNoTests o un script "test" básico)
+      - name: 🧪 Test
+        run: npm test
 
+      # 6) (Opcional) Deploy a Render vía Deploy Hook, sólo si los pasos previos han pasado
+      #    Evitamos error 409 (deploy ya en curso) con un pequeño wait defensivo
       - name: 🚀 Deploy to Render (Deploy Hook)
-        if: ${{ success() }}
+        if: ${{ success() && env.RENDER_DEPLOY_HOOK_URL != '' }}
         env:
           RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          if [ -z "$RENDER_DEPLOY_HOOK_URL" ]; then
-            echo "Missing secret RENDER_DEPLOY_HOOK_URL"
-            exit 1
-          fi
+          echo "Esperando unos segundos para evitar 409 si Render está ocupando pipeline..."
+          sleep 10
           echo "Triggering Render deploy via Deploy Hook..."
           curl -fsS "$RENDER_DEPLOY_HOOK_URL" -o /dev/null
-          echo "Deploy hook sent successfully."
+          echo "Deploy hook sent."
+
+      # (Opcional) fall back informativo por si falta el secreto
+      - name: ℹ️ Skip deploy (no hook configured)
+        if: ${{ success() && env.RENDER_DEPLOY_HOOK_URL == '' }}
+        run: echo "RENDER_DEPLOY_HOOK_URL no configurado. Sólo build+test."
