@@ -3,6 +3,7 @@ import { codeToLetter, isBackspace, isLetterCode, isEnterCode } from "../../infr
 import { CellState } from "../../domain/types.js";
 import { GameUIPort } from "../ports/GameUIPort.js";
 import { NavigationPort } from "../ports/NavigationPort.js";
+import { RandomWordPort } from "../ports/RandomWordPort.js";
 
 export class GameController {
 
@@ -10,7 +11,8 @@ export class GameController {
         private readonly game: WordleGame,
         private readonly ui: GameUIPort,
         private readonly navigation: NavigationPort,
-    ) { }
+        private readonly randomWord: RandomWordPort,
+    ) {}
 
     handleInput(code: string): void {
         if (isLetterCode(code)) {
@@ -47,10 +49,13 @@ export class GameController {
             this.paintKeys(result.submittedGuess, result.states);
 
             if (result.outcome === "win") {
+                this.randomWord.resetWord();
                 this.navigation.goToWin();
             }
 
+
             if (result.outcome === "lose") {
+                this.randomWord.resetWord();
                 this.navigation.goToLose();
             }
         }

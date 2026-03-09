@@ -1,9 +1,10 @@
 import { codeToLetter, isBackspace, isLetterCode, isEnterCode } from "../../infrastructure/input/Keyboard.js";
 export class GameController {
-    constructor(game, ui, navigation) {
+    constructor(game, ui, navigation, randomWordProvider) {
         this.game = game;
         this.ui = ui;
         this.navigation = navigation;
+        this.randomWordProvider = randomWordProvider;
     }
     handleInput(code) {
         if (isLetterCode(code)) {
@@ -34,9 +35,11 @@ export class GameController {
             this.paintCells(turn, result.states);
             this.paintKeys(result.submittedGuess, result.states);
             if (result.outcome === "win") {
+                this.randomWordProvider.resetWord();
                 this.navigation.goToWin();
             }
             if (result.outcome === "lose") {
+                this.randomWordProvider.resetWord();
                 this.navigation.goToLose();
             }
         }

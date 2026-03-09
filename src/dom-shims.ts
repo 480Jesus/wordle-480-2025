@@ -1,6 +1,15 @@
 // Minimal DOM declarations to allow server-side TypeScript compilation
 // while keeping tsconfig lib restricted to ES2020 + node types.
 declare global {
+  interface ImportMetaEnv {
+    readonly VITE_SUPABASE_URL: string;
+    readonly VITE_SUPABASE_ANON_KEY: string;
+  }
+
+  interface ImportMeta {
+    readonly env: ImportMetaEnv;
+  }
+
   interface Event {
     preventDefault(): void;
     currentTarget: unknown;

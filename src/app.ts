@@ -23,6 +23,17 @@ app.get("/health", (_req: Request, res: Response) => {
   res.status(200).send("OK");
 });
 
+app.get("/runtime-config.js", (_req: Request, res: Response) => {
+  const supabaseUrl = process.env.VITE_SUPABASE_URL ?? "";
+  const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY ?? "";
+
+  res.type("application/javascript");
+  res.setHeader("Cache-Control", "no-store");
+  res.send(
+    `window.VITE_SUPABASE_URL=${JSON.stringify(supabaseUrl)};window.VITE_SUPABASE_ANON_KEY=${JSON.stringify(supabaseAnonKey)};`
+  );
+});
+
 const PORT = Number(process.env.PORT) || 3000;
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, "0.0.0.0", () => {
