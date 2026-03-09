@@ -11,6 +11,8 @@ on:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
+    env:
+      RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
     steps:
       - name: 📥 Checkout repository
@@ -32,9 +34,9 @@ jobs:
         run: npm test
 
       - name: 🚀 Deploy to Render (retry on 409) — only on push
-        if: ${{ github.event_name == 'push' && success() && secrets.RENDER_DEPLOY_HOOK_URL != '' }}
+        if: github.event_name == 'push' && success() && env.RENDER_DEPLOY_HOOK_URL != ''
         env:
-          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+          HOOK: ${{ env.RENDER_DEPLOY_HOOK_URL }}
         run: |
           echo "Intentando lanzar el deploy…"
           for i in 1 2 3; do
@@ -54,5 +56,5 @@ jobs:
           exit 1
 
       - name: ℹ️ Deploy skipped
-        if: ${{ github.event_name == 'push' && success() && secrets.RENDER_DEPLOY_HOOK_URL == '' }}
+        if: github.event_name == 'push' && success() && env.RENDER_DEPLOY_HOOK_URL == ''
         run: echo "RENDER_DEPLOY_HOOK_URL no está configurado. Solo build + test."
