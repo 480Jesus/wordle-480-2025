@@ -1,23 +1,21 @@
-type CellState = "RightLetter" | "MisplacedLetter" | "WrongLetter";
+export type CellState = "RightLetter" | "MisplacedLetter" | "WrongLetter";
 
-class WordEvaluator {
-
+export class WordEvaluator {
     evaluate(target: string, guess: string): CellState[] {
         const result: CellState[] = new Array(guess.length).fill("WrongLetter");
         const remaining = new Map<string, number>();
 
         for (let i = 0; i < target.length; i++) {
             if (guess[i] === target[i]) {
-                result[i] = "RightLetter"
+                result[i] = "RightLetter";
             } else {
                 const ch = target[i];
-                remaining.set(ch, (remaining.get(ch) ?? 0) + 1)
+                remaining.set(ch, (remaining.get(ch) ?? 0) + 1);
             }
         }
 
         for (let i = 0; i < guess.length; i++) {
-            if (result[i] === "RightLetter")
-                continue;
+            if (result[i] === "RightLetter") continue;
 
             const ch = guess[i];
             const count = remaining.get(ch) ?? 0;
@@ -31,4 +29,3 @@ class WordEvaluator {
     }
 }
 
-module.exports = { WordEvaluator };

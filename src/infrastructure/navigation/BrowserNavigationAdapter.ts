@@ -1,4 +1,4 @@
-import { NavigationPort } from "../../application/ports/NavigationPort";
+import { NavigationPort } from "../../application/ports/NavigationPort.js";
 
 export class BrowserNavigationAdapter implements NavigationPort {
     

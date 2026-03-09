@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "A wordle game clone",
   "main": "app.js",
+  "type": "module",
   "scripts": {
+    "build": "tsc",
+    "start": "node build/app.js",
+    "dev": "nodemon --watch src --ext ts --exec \"node --loader ts-node/esm src/app.ts\"",
     "tsc": "tsc",
-    "start": "nodemon ./build/app.js",
     "test": "jest --passWithNoTests",
     "docs": "typedoc"
   },

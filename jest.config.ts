@@ -9,6 +9,13 @@ export default {
   preset: 'ts-jest',
   // Entorno de ejecución: Node.js
   testEnvironment: 'node',
+  // Tratar los archivos .ts como ESM para coincidir con el proyecto
+  extensionsToTreatAsEsm: ['.ts'],
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
   // Patrón de archivos de test
   testMatch: ['**/tests/**/*.test.ts'],
   // Transformar archivos .ts con ts-jest

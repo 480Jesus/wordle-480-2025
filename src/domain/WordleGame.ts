@@ -1,5 +1,5 @@
-import { SubmitResult } from "./types";
-import { WordEvaluator } from "./WordEvaluator";
+import { SubmitResult } from "./types.js";
+import { WordEvaluator } from "./WordEvaluator.js";
 
 
 export class WordleGame{

@@ -1,5 +1,5 @@
-import { GameUIPort } from "../../application/ports/GameUIPort";
-import { CellState } from "../../domain/types";
+import { GameUIPort } from "../../application/ports/GameUIPort.js";
+import { CellState } from "../../domain/types.js";
 
 export class DomGameUIAdapter implements GameUIPort {
 

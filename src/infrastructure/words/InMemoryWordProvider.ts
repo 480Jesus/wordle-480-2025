@@ -1,4 +1,4 @@
-import { RandomWordPort } from "../../application/ports/RandomWordPort";
+import { RandomWordPort } from "../../application/ports/RandomWordPort.js";
 
 export class InMemoryWordProvider implements RandomWordPort{
 

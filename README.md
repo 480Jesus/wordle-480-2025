@@ -16,15 +16,25 @@ Para ello abre una terminal y situate en el directorio del repositorio que acaba
 
 *Cuando hablamos de dependencias nos referimos a utilidades o bibliotecas de terceros. Es decir, herramientas que han desarrollado otros programadores y que, debido a que son de código abierto, cualquiera puede usar en su proyecto. Si no modificas ese código nunca, no tiene sentido que lo controles mediante un repositorio de Git, por lo que ese código no se sube a los repositorios remotos, así aligeramos el código que controla el repo, y nos centramos solo en mantener el código del que somos propietarios. Para no controlar un archivo o carpeta dentro de un repo solo tenemos que añadirlo al archivo `.gitignore`. Las dependencias de un proyecto en NodeJS se gestionan mediante un archivo llamado `package.json`. Si quieres saber más sobre la finalidad de este archivo, puedes hacerlo desde [aquí](https://docs.npmjs.com/cli/v11/configuring-npm/package-json)*
 
-**4. Ejecuta la app**
+**4. Compila y ejecuta la app**
 
-Solo tienes que ir a la terminal y ejecutar el comando `npm start`. Esto tambien se define dentro del `package.json`, en el apartado scripts.
+La aplicación está escrita en TypeScript y se transpila a JavaScript en `build/`.
+Ejecuta los comandos siguientes desde la raíz del repositorio:
 
-**5. Accede a la app**
+```bash
+npm ci          # instala dependencias
+npm run build   # genera la carpeta `build/`
+npm start       # arranca el servidor con node build/app.js
+```
 
-Abre el navegador y accede a la URL del servidor local, en concreto al puerto 3000 (un puerto bastante común para estos menesteres, se define dentro del código del proyecto, en el archivo index.ts): 
-[http://localhost:3000](
-http://localhost:3000)
+El servidor escucha en `0.0.0.0` y usa `process.env.PORT` (el valor por defecto es 3000).
+
+**5. Accede a la app y health check**
+
+- Abre el navegador en http://localhost:3000/ para ver la interfaz principal.
+- Render u otros servicios de PaaS pueden comprobar el estado enviando `GET /health`.
+  Esta ruta devuelve 200 y el texto `OK`.
+
 
 **6. Si trabajas en equipo**
 
@@ -33,3 +43,13 @@ Uno de los miembros del equipo deberá crear un repo nuevo en Github y añadir a
 **7. Refactorizar**
 
 Los archivos sobre los que tenéis que trabajar son los .ts. A medida que vayáis haciendo cambios y queráis probarlos, necesitáis transpilar el código a JavaScript, para ello tendréis que ir a la consola, y, desde dentro de la carpeta raiz del proyecto, ecutar el comando `npm run tsc`. Una vez el transpilador haya acabado, tendrás que poner en marcha de nuevo la app con `npm start`.
+
+<!-- Comprobacion local para despliegue en Render -->
+## Comprobacion local (Render-ready)
+
+1. `npm ci`
+2. `npm run build`
+3. `node build/app.js`
+4. Abrir `http://localhost:3000/health` y comprobar respuesta `OK`
+
+Nota: en Render configura el health check path como `/health`.

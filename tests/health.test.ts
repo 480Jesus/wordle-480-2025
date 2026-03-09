@@ -4,13 +4,14 @@
  * Para ejecutar: npm test
  * Para añadir más tests: crea nuevos archivos .test.ts en esta carpeta
  */
-const supertest = require('supertest');
-const appInstance = require('../src/app');
+
+import supertest from 'supertest';
+import appInstance from '../src/app';
 
 describe('Health Endpoint', () => {
-  it('should return 200 and status OK', async () => {
+  it('should return 200 and text OK', async () => {
     const response = await supertest(appInstance).get('/health');
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({ status: 'OK' });
+    expect(response.text).toBe('OK');
   });
 });

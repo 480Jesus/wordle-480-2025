@@ -1,4 +1,4 @@
-import { InputHandler, InputSourcePort } from "../../application/ports/InputSourcePort";
+import { InputHandler, InputSourcePort } from "../../application/ports/InputSourcePort.js";
 
 export class DomKeyboardInputAdapter implements InputSourcePort {
     subscribe(handler: InputHandler): void {

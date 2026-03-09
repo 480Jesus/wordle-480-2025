@@ -4,8 +4,9 @@
  * Para ejecutar: npm test
  * Para añadir más tests: crea nuevos archivos .test.ts en esta carpeta
  */
-const supertest = require('supertest');
-const appInstance = require('../src/app');
+
+import supertest from 'supertest';
+import appInstance from '../src/app';
 
 describe('Server Root Endpoint', () => {
   it('should return 200 for root path', async () => {

@@ -1,8 +1,8 @@
-import { WordleGame } from "../../domain/WordleGame";
+import { WordleGame } from "../../domain/WordleGame.js";
 import { codeToLetter, isBackspace, isLetterCode, isEnterCode } from "../../infrastructure/input/Keyboard.js";
-import { CellState } from "../../domain/types";
-import { GameUIPort } from "../ports/GameUIPort";
-import { NavigationPort } from "../ports/NavigationPort";
+import { CellState } from "../../domain/types.js";
+import { GameUIPort } from "../ports/GameUIPort.js";
+import { NavigationPort } from "../ports/NavigationPort.js";
 
 export class GameController {
 

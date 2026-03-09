@@ -27,4 +27,4 @@ const navigation = new BrowserNavigationAdapter();
 const controller = new GameController(game, ui, navigation);
 
 const input = new DomKeyboardInputAdapter();
-input.subscribe((code) => controller.handleInput(code));
+input.subscribe((code: string) => controller.handleInput(code));
