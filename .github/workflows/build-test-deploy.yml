@@ -11,6 +11,8 @@ on:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
+
+    # Hacemos accesible el secret como variable de entorno
     env:
       RENDER_DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
 
@@ -33,28 +35,30 @@ jobs:
       - name: 🧪 Run tests
         run: npm test
 
-      - name: 🚀 Deploy to Render (retry on 409) — only on push
-        if: github.event_name == 'push' && success() && env.RENDER_DEPLOY_HOOK_URL != ''
+      # DEPLOY solo si: es push + el hook existe + todo salió bien
+      - name: 🚀 Deploy to Render (retry on 409)
+        if: ${{ github.event_name == 'push' && success() && env.RENDER_DEPLOY_HOOK_URL != '' }}
         env:
           HOOK: ${{ env.RENDER_DEPLOY_HOOK_URL }}
         run: |
           echo "Intentando lanzar el deploy…"
           for i in 1 2 3; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$HOOK")
-            if [ "$STATUS" = "409" ]; then
+            if [ "$STATUS" == "409" ]; then
               echo "Render ocupado (409). Reintentando en 10s ($i/3)…"
               sleep 10
             elif [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
               echo "Deploy lanzado correctamente."
               exit 0
             else
-              echo "Render devolvió HTTP $STATUS."
+              echo "Render devolvió HTTP $STATUS"
               exit 1
             fi
           done
-          echo "Falló después de 3 intentos."
+          echo "Falló después de 3 intentos"
           exit 1
 
+      # Si no hay hook → no falla la acción, solo informa
       - name: ℹ️ Deploy skipped
-        if: github.event_name == 'push' && success() && env.RENDER_DEPLOY_HOOK_URL == ''
+        if: ${{ github.event_name == 'push' && success() && env.RENDER_DEPLOY_HOOK_URL == '' }}
         run: echo "RENDER_DEPLOY_HOOK_URL no está configurado. Solo build + test."
