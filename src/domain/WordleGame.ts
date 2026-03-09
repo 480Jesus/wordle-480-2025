@@ -1,4 +1,4 @@
-import { SubmitResult } from "./types.js";
+import type { SubmitResult } from "./types.js";
 import { WordEvaluator } from "./WordEvaluator.js";
 
 

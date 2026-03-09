@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "dev": "vite",
     "prebuild": "node -e \"require('node:fs').rmSync('build',{recursive:true,force:true})\"",
-    "build": "tsc",
+    "build": "tsc && vite build",
+    "build:server": "tsc",
+    "preview": "vite preview",
     "start": "node build/app.js",
     "test": "jest --passWithNoTests"
   },

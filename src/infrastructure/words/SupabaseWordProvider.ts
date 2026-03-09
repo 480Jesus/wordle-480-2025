@@ -1,43 +1,49 @@
 import { createClient } from "@supabase/supabase-js";
 import type { RandomWordPort } from "../../application/ports/RandomWordPort.js";
 
-let cachedWord: string | null = null;
+type WordRow = {
+    value?: string | null;
+    word?: string | null;
+};
 
 export class SupabaseWordProvider implements RandomWordPort {
-  private client = createClient(
-    import.meta.env.VITE_SUPABASE_URL!,
-    import.meta.env.VITE_SUPABASE_ANON_KEY!
-  );
+    private readonly client = createClient(
+        import.meta.env.VITE_SUPABASE_URL,
+        import.meta.env.VITE_SUPABASE_ANON_KEY
+    );
 
-  async getRandomWord(): Promise<string> {
-    // Si hay palabra en caché, devolverla
-    if (cachedWord) {
-      return cachedWord;
+    private cachedWord: string | null = null;
+
+    async getRandomWord(): Promise<string> {
+        if (this.cachedWord) {
+            return this.cachedWord;
+        }
+
+        const { data, error } = await this.client
+            .from("words")
+            .select("value,word")
+            .limit(200);
+
+        if (error) {
+            throw new Error(`Cannot get word from database: ${error.message}`);
+        }
+
+        const words = (data as WordRow[] | null)
+            ?.map((row) => (row.value ?? row.word ?? "").trim().toUpperCase())
+            .filter((word) => word.length > 0) ?? [];
+
+        if (words.length === 0) {
+            throw new Error("Cannot get word from database: no valid words returned");
+        }
+
+        const randomIndex = Math.floor(Math.random() * words.length);
+        const selectedWord = words[randomIndex];
+
+        this.cachedWord = selectedWord;
+        return selectedWord;
     }
 
-    // Pedir palabra a Supabase
-    const { data, error } = await this.client
-      .from("words")
-      .select("value")
-      .order("random()")
-      .limit(1);
-
-    if (error) {
-      console.error("Supabase error:", error);
-      throw new Error("Cannot get word from database");
+    resetWord(): void {
+        this.cachedWord = null;
     }
-
-    const selectedWord = data?.[0]?.value;
-    if (typeof selectedWord !== "string" || selectedWord.length === 0) {
-      throw new Error("Invalid word received from database");
-    }
-
-    cachedWord = selectedWord;
-    return selectedWord;
-  }
-
-  //Método que usamos cuando el usuario gana o pierde
-  resetWord(): void {
-    cachedWord = null;
-  }
 }
