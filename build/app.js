@@ -1,16 +1,16 @@
 import express from "express";
 import path from "node:path";
-const __dirname = process.cwd();
+const ROOT_DIR = process.cwd();
 const app = express();
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(ROOT_DIR, "public")));
 app.get("/", (_req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(ROOT_DIR, "public", "index.html"));
 });
 app.get("/winner", (_req, res) => {
-    res.sendFile(path.join(__dirname, "public", "winner.html"));
+    res.sendFile(path.join(ROOT_DIR, "public", "winner.html"));
 });
 app.get("/loser", (_req, res) => {
-    res.sendFile(path.join(__dirname, "public", "loser.html"));
+    res.sendFile(path.join(ROOT_DIR, "public", "loser.html"));
 });
 app.get("/health", (_req, res) => {
     res.status(200).send("OK");

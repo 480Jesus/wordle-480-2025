@@ -1,4 +1,4 @@
-type CellState = "RightLetter" | "MisplacedLetter" | "WrongLetter";
+import type { CellState } from "../../domain/types.js";
 
 export interface GameUIPort {
     setLetter(turn: number, position: number, letter: string): void;

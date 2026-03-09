@@ -1,4 +1,4 @@
-export type CellState = "RightLetter" | "MisplacedLetter" | "WrongLetter";
+import type { CellState } from "./types.js";
 
 export class WordEvaluator {
     evaluate(target: string, guess: string): CellState[] {
