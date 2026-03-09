@@ -12,7 +12,7 @@ const words = [
     "DULCE", "SALSA", "LIMON", "PAPEL", "MESA",
     "SILLA", "COCHE", "TREN", "AVION", "BARCO",
     "HOTEL", "PLATO", "ARROZ", "PERAS", "MANGO",
-    "MELON", "TIGRE", "ZORRO", "PALMA", "CAMPO"
+    "MELON", "TIGRE", "ZORRO", "PALMA"
 ];
 const wordProvider = new InMemoryWordProvider(words);
 const targetWord = wordProvider.getRandomWord();
