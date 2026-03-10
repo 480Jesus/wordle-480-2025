@@ -1,18 +1,26 @@
 import { createClient } from "@supabase/supabase-js";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type { RandomWordPort } from "../../application/ports/RandomWordPort.js";
 
 type WordRow = {
-    value?: string | null;
-    word?: string | null;
+    value?: unknown;
+    word?: unknown;
 };
 
 export class SupabaseWordProvider implements RandomWordPort {
-    private readonly client = createClient(
-        import.meta.env.VITE_SUPABASE_URL,
-        import.meta.env.VITE_SUPABASE_ANON_KEY
-    );
-
+    private readonly client: SupabaseClient;
     private cachedWord: string | null = null;
+
+    constructor() {
+        const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+        const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+        if (!supabaseUrl || !supabaseAnonKey) {
+            throw new Error("Missing Supabase env vars: VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY");
+        }
+
+        this.client = createClient(supabaseUrl, supabaseAnonKey);
+    }
 
     async getRandomWord(): Promise<string> {
         if (this.cachedWord) {
@@ -21,7 +29,7 @@ export class SupabaseWordProvider implements RandomWordPort {
 
         const { data, error } = await this.client
             .from("words")
-            .select("value,word")
+            .select("*")
             .limit(200);
 
         if (error) {
@@ -29,7 +37,12 @@ export class SupabaseWordProvider implements RandomWordPort {
         }
 
         const words = (data as WordRow[] | null)
-            ?.map((row) => (row.value ?? row.word ?? "").trim().toUpperCase())
+            ?.map((row) => {
+                const raw = typeof row.word === "string"
+                    ? row.word
+                    : (typeof row.value === "string" ? row.value : "");
+                return raw.trim().toUpperCase();
+            })
             .filter((word) => word.length > 0) ?? [];
 
         if (words.length === 0) {
