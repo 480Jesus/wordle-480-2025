@@ -1,4 +1,4 @@
-import type { InputHandler, InputSourcePort } from "../../application/ports/InputSourcePort.js";
+ï»¿import type { InputHandler, InputSourcePort } from "../../application/ports/InputSourcePort.js";
 import { isBackspace, isEnterCode, isLetterCode } from "./Keyboard.js";
 
 type HotModule = {
@@ -16,7 +16,7 @@ function normalizeCode(event: KeyboardEvent): string | null {
 
     if (key === "Enter") return "Enter";
     if (key === "Backspace") return "Backspace";
-    if (key === "Ñ" || key === "ñ") return "Semicolon";
+    if (key === "\u00D1" || key === "\u00F1") return "Semicolon";
 
     if (key.length === 1 && /^[a-z]$/i.test(key)) {
         return `Key${key.toUpperCase()}`;
