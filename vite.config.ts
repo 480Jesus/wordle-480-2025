@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
   root: ".",
   publicDir: "public",
-  base: "./",         // era esto!!!!
+  base: "./",
   build: {
     outDir: "dist",
   },
