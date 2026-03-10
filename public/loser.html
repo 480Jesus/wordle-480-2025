@@ -124,10 +124,14 @@
         <a class="play-again" href="./index.html">Volver a jugar</a>
     </div>
     <script>
-        const lastWord = sessionStorage.getItem("wordle:lastWord");
         const target = document.getElementById("correct-word");
-        if (lastWord && target) {
-            target.textContent = `La palabra correcta era: ${lastWord}`;
+        const params = new URLSearchParams(location.search);
+        const fromQuery = params.get("word");
+        const fromStorage = sessionStorage.getItem("wordle:lastWord");
+        const word = (fromQuery ? decodeURIComponent(fromQuery) : fromStorage) || "";
+
+        if (word && target) {
+            target.textContent = `La palabra correcta era: ${word}`;
             sessionStorage.removeItem("wordle:lastWord");
         }
     </script>

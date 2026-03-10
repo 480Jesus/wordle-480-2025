@@ -53,9 +53,14 @@ export class GameController {
             }
 
             if (result.outcome === "lose") {
-                sessionStorage.setItem("wordle:lastWord", this.game.target);
+                const correctWord = this.game.target;
+                try {
+                    sessionStorage.setItem("wordle:lastWord", correctWord);
+                } catch {
+                    // Ignore storage errors (privacy mode, quota, etc.)
+                }
                 this.randomWord.resetWord();
-                this.navigation.goToLose();
+                this.navigation.goToLose(encodeURIComponent(correctWord));
             }
         }
     }

@@ -5,7 +5,11 @@ export class BrowserNavigationAdapter implements NavigationPort {
         location.assign("/winner.html");
     }
 
-    goToLose(): void {
+    goToLose(correctWord?: string): void {
+        if (correctWord) {
+            location.assign(`/loser.html?word=${correctWord}`);
+            return;
+        }
         location.assign("/loser.html");
     }
 }

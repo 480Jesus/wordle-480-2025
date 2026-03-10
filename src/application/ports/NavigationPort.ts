@@ -1,4 +1,4 @@
 export interface NavigationPort {
    goToWin(): void;
-   goToLose(): void;
+   goToLose(correctWord?: string): void;
 }
