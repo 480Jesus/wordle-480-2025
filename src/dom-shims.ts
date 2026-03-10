@@ -18,6 +18,7 @@ declare global {
 
   interface KeyboardEvent extends Event {
     code: string;
+    key: string;
   }
 
   interface ClassList {
@@ -37,6 +38,7 @@ declare global {
       listener: (event: Event) => void,
       options?: { once?: boolean }
     ): void;
+    removeEventListener(type: string, listener: (event: Event) => void): void;
   }
 
   interface HTMLButtonElement extends HTMLElement {
@@ -52,6 +54,11 @@ declare global {
       options?: { once?: boolean }
     ): void;
     getElementById(id: string): HTMLElement | null;
+  };
+
+  const window: {
+    addEventListener(type: string, listener: (event: KeyboardEvent) => void): void;
+    removeEventListener(type: string, listener: (event: KeyboardEvent) => void): void;
   };
 
   const location: {
