@@ -65,7 +65,11 @@ declare global {
     assign(url: string): void;
   };
 
-  function alert(message?: string): void;
+  const sessionStorage: {
+    getItem(key: string): string | null;
+    setItem(key: string, value: string): void;
+    removeItem(key: string): void;
+  };
 
   class DOMParser {
     parseFromString(

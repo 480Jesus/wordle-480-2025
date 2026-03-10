@@ -120,8 +120,17 @@
         </div>
         <h1>HAS PALMADO</h1>
         <p class="sub">Se te acabaron los intentos. ¡La próxima será!</p>
+        <p class="sub" id="correct-word"></p>
         <a class="play-again" href="./index.html">Volver a jugar</a>
     </div>
+    <script>
+        const lastWord = sessionStorage.getItem("wordle:lastWord");
+        const target = document.getElementById("correct-word");
+        if (lastWord && target) {
+            target.textContent = `La palabra correcta era: ${lastWord}`;
+            sessionStorage.removeItem("wordle:lastWord");
+        }
+    </script>
 </body>
 
 </html>
