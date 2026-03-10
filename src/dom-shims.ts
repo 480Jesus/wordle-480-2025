@@ -44,8 +44,13 @@ declare global {
   }
 
   const document: {
+    readyState: string;
     getElementsByClassName(className: string): ArrayLike<HTMLElement>;
-    addEventListener(type: string, listener: (event: KeyboardEvent) => void): void;
+    addEventListener(
+      type: string,
+      listener: (event: any) => void,
+      options?: { once?: boolean }
+    ): void;
     getElementById(id: string): HTMLElement | null;
   };
 

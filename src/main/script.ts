@@ -23,8 +23,17 @@ async function init(): Promise<void> {
     let targetWord: string;
 
     try {
-        wordProvider = new SupabaseWordProvider();
-        targetWord = await wordProvider.getRandomWord();
+        const supabaseProvider = new SupabaseWordProvider();
+        const timeoutMs = 3000;
+        const timeoutPromise = new Promise<string>((_, reject) =>
+            setTimeout(() => reject(new Error(`Supabase timeout after ${timeoutMs}ms`)), timeoutMs)
+        );
+
+        targetWord = await Promise.race([
+            supabaseProvider.getRandomWord(),
+            timeoutPromise,
+        ]);
+        wordProvider = supabaseProvider;
     } catch (error) {
         console.error("Supabase unavailable. Falling back to in-memory words.", error);
         wordProvider = new InMemoryWordProvider(fallbackWords);
@@ -42,4 +51,14 @@ async function init(): Promise<void> {
     input.subscribe((code: string) => controller.handleInput(code));
 }
 
-void init();
+function bootstrap(): void {
+    void init().catch((error) => {
+        console.error("Fatal initialization error", error);
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrap, { once: true });
+} else {
+    bootstrap();
+}

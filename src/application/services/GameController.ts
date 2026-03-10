@@ -6,7 +6,6 @@ import type { NavigationPort } from "../ports/NavigationPort.js";
 import type { RandomWordPort } from "../ports/RandomWordPort.js";
 
 export class GameController {
-
     constructor(
         private readonly game: WordleGame,
         private readonly ui: GameUIPort,
@@ -53,7 +52,6 @@ export class GameController {
                 this.navigation.goToWin();
             }
 
-
             if (result.outcome === "lose") {
                 this.randomWord.resetWord();
                 this.navigation.goToLose();
@@ -70,7 +68,7 @@ export class GameController {
     private paintKeys(submittedGuess: string, states: CellState[]): void {
         for (let i = 0; i < states.length; i++) {
             const letter = submittedGuess[i];
-            const letterCode = letter === "Ñ" ? "Semicolon" : `Key${letter}`;
+            const letterCode = letter === "\u00D1" ? "Semicolon" : `Key${letter}`;
             this.ui.paintKey(letterCode, states[i]);
         }
     }

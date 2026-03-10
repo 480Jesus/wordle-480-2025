@@ -2,7 +2,7 @@ const SEMICOLON_CODE = "Semicolon";
 const LETTER_CODE = new Set([
     "KeyQ","KeyW","KeyE","KeyR","KeyT","KeyY","KeyU","KeyI","KeyO","KeyP",
     "KeyA","KeyS","KeyD","KeyF","KeyG","KeyH","KeyJ","KeyK","KeyL",
-    "KeyZ","KeyX","KeyC","KeyV","KeyB","KeyN","KeyM", SEMICOLON_CODE // = Ñ
+    "KeyZ","KeyX","KeyC","KeyV","KeyB","KeyN","KeyM", SEMICOLON_CODE // = �
 ]);
 
 export function isLetterCode(code: string): boolean {
@@ -18,5 +18,5 @@ export function isBackspace(code: string): boolean {
 }
 
 export function codeToLetter(code: string): string {
-    return code === SEMICOLON_CODE ? "Ñ" : code.replace("Key", "");
+    return code === SEMICOLON_CODE ? "\u00D1" : code.replace("Key", "");
 }
