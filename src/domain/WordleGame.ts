@@ -23,6 +23,10 @@ export class WordleGame{
         return this.currentGuess.length;
     }
 
+    get target(): string {
+        return this.targetWord;
+    }
+
     addLetter(letter: string): boolean {
         if (this.currentGuess.length >= this.maxWordSize) return false;
         this.currentGuess += letter;

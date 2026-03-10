@@ -65,4 +65,8 @@ export class DomGameUIAdapter implements GameUIPort {
             row.classList.remove("shake");
         }, { once: true });
     }
+
+    showLoseMessage(correctWord: string): void {
+        alert(`La palabra correcta era: ${correctWord}`);
+    }
 }

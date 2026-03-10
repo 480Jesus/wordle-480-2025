@@ -53,6 +53,7 @@ export class GameController {
             }
 
             if (result.outcome === "lose") {
+                this.ui.showLoseMessage(this.game.target);
                 this.randomWord.resetWord();
                 this.navigation.goToLose();
             }

@@ -65,6 +65,8 @@ declare global {
     assign(url: string): void;
   };
 
+  function alert(message?: string): void;
+
   class DOMParser {
     parseFromString(
       input: string,

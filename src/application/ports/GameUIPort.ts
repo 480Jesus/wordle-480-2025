@@ -6,4 +6,5 @@ export interface GameUIPort {
     paintCell(turn: number, position: number, state: CellState): void;
     paintKey(code: string, state: CellState): void;
     shakeRow(turn: number): void;
+    showLoseMessage(correctWord: string): void;
 }
