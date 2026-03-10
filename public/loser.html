@@ -127,12 +127,18 @@
         const target = document.getElementById("correct-word");
         const params = new URLSearchParams(location.search);
         const fromQuery = params.get("word");
-        const fromStorage = sessionStorage.getItem("wordle:lastWord");
-        const word = (fromQuery ? decodeURIComponent(fromQuery) : fromStorage) || "";
+        const fromHash = new URLSearchParams(location.hash.replace(/^#/, "")).get("word");
+        const fromSession = sessionStorage.getItem("wordle:lastWord");
+        const fromLocal = localStorage.getItem("wordle:lastWord");
+        const word = fromHash || fromQuery || fromSession || fromLocal || "";
+        const normalize = (value) => {
+            try { return decodeURIComponent(value); } catch { return value; }
+        };
 
         if (word && target) {
-            target.textContent = `La palabra correcta era: ${word}`;
+            target.textContent = `La palabra correcta era: ${normalize(word)}`;
             sessionStorage.removeItem("wordle:lastWord");
+            localStorage.removeItem("wordle:lastWord");
         }
     </script>
 </body>

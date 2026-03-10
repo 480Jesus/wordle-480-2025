@@ -7,7 +7,7 @@ export class BrowserNavigationAdapter implements NavigationPort {
 
     goToLose(correctWord?: string): void {
         if (correctWord) {
-            location.assign(`/loser.html?word=${correctWord}`);
+            location.assign(`/loser.html#word=${encodeURIComponent(correctWord)}`);
             return;
         }
         location.assign("/loser.html");

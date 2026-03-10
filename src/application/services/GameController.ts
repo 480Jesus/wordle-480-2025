@@ -56,11 +56,12 @@ export class GameController {
                 const correctWord = this.game.target;
                 try {
                     sessionStorage.setItem("wordle:lastWord", correctWord);
+                    localStorage.setItem("wordle:lastWord", correctWord);
                 } catch {
                     // Ignore storage errors (privacy mode, quota, etc.)
                 }
                 this.randomWord.resetWord();
-                this.navigation.goToLose(encodeURIComponent(correctWord));
+                this.navigation.goToLose(correctWord);
             }
         }
     }

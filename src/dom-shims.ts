@@ -71,6 +71,12 @@ declare global {
     removeItem(key: string): void;
   };
 
+  const localStorage: {
+    getItem(key: string): string | null;
+    setItem(key: string, value: string): void;
+    removeItem(key: string): void;
+  };
+
   class DOMParser {
     parseFromString(
       input: string,
