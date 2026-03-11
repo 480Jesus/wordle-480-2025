@@ -44,8 +44,7 @@ Uno de los miembros del equipo deberá crear un repo nuevo en Github y añadir a
 
 Los archivos sobre los que tenéis que trabajar son los .ts. A medida que vayáis haciendo cambios y queráis probarlos, necesitáis transpilar el código a JavaScript, para ello tendréis que ir a la consola, y, desde dentro de la carpeta raiz del proyecto, ecutar el comando `npm run tsc`. Una vez el transpilador haya acabado, tendrás que poner en marcha de nuevo la app con `npm start`.
 
-<!-- Comprobacion local para despliegue en Render -->
-## Comprobacion local (Render-ready)
+Comprobacion local (Render-ready)
 
 1. `npm ci`
 2. `npm run build`

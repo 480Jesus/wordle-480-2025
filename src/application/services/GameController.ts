@@ -58,7 +58,7 @@ export class GameController {
                     sessionStorage.setItem("wordle:lastWord", correctWord);
                     localStorage.setItem("wordle:lastWord", correctWord);
                 } catch {
-                    // Ignore storage errors (privacy mode, quota, etc.)
+
                 }
                 this.randomWord.resetWord();
                 this.navigation.goToLose(correctWord);
